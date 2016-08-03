@@ -8,7 +8,7 @@ var p5 = require('./core');
 var constants = require('./constants');
 require('./p5.Graphics');
 require('./p5.Renderer2D');
-require('../3d/p5.Renderer3D');
+require('../webgl/p5.RendererGL');
 var defaultId = 'defaultCanvas0'; // this gets set again in createCanvas
 
 /**
@@ -29,7 +29,7 @@ var defaultId = 'defaultCanvas0'; // this gets set again in createCanvas
  * @method createCanvas
  * @param  {Number} w width of the canvas
  * @param  {Number} h height of the canvas
- * @param  {String} [renderer] 'p2d' | 'webgl'
+ * @param  {Constant} [renderer] P2D or WEBGL
  * @return {Object} canvas generated
  * @example
  * <div>
@@ -94,7 +94,7 @@ p5.prototype.createCanvas = function(w, h, renderer) {
   // Init our graphics renderer
   //webgl mode
   if (r === constants.WEBGL) {
-    this._setProperty('_renderer', new p5.Renderer3D(c, this, true));
+    this._setProperty('_renderer', new p5.RendererGL(c, this, true));
     this._isdefaultGraphics = true;
   }
   //P2D mode
@@ -182,7 +182,7 @@ p5.prototype.noCanvas = function() {
  * @method createGraphics
  * @param  {Number} w width of the offscreen graphics buffer
  * @param  {Number} h height of the offscreen graphics buffer
- * @param {String} renderer either 'p2d' or 'webgl'.
+ * @param  {Constant} [renderer] P2D or WEBGL
  * undefined defaults to p2d
  * @return {Object} offscreen graphics buffer
  * @example
@@ -243,7 +243,7 @@ p5.prototype.createGraphics = function(w, h, renderer){
  * </ul>
  *
  * @method blendMode
- * @param  {String/Constant} mode blend mode to set for canvas
+ * @param  {Constant} mode blend mode to set for canvas
  * @example
  * <div>
  * <code>
